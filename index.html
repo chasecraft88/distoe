@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .matrix-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.8;
+            animation: matrix-move 3s infinite linear;
+            z-index: -1;
+        }
+
+        .matrix-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            color: green;
+            font-size: 36px;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Adjust the opacity here */
+        }
+
+        .menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu li {
+            margin: 10px 0;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            display: block;
+        }
+
+        .section {
+            position: relative;
+            text-align: center;
+            color: white;
+            z-index: 2;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Adjust the opacity here */
+        }
+
+        .section-header {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .section-content {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .custom-link {
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+            display: block;
+            margin-bottom: 10px;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.5s;
+            border: 2px solid white;
+            border-radius: 10px;
+        }
+
+        .custom-link:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="matrix-container"></div>
+    <div class="matrix-text">
+        ChaseCraft Showcase
+    </div>
+
+    <div class="header">
+        <h1>ChaseCraft</h1>
+        <p>Slogan: ChaseChanceChange</p>
+    </div>
+
+    <nav class="menu">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="section">
+        <div class="section-header">Popular Links</div>
+        <div class="section-content">
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/Lightning.html">Lightning Storm</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/matrix2.html">Matrix Style</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/games.html">Games</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/cardstats.html">Card Stats</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/Spell.html">Spell</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/stories.html">Stories</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/honey.html">Honey</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/honey1.html">Honey1</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/cat1.html">Cat1</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/globe1.html">Globe1</a>
+            <a class="custom-link" href="https://chasecraft88.github.io/Disto/swarm.html">Swarm</a>
+        </div>
+    </div>
+
+    <!-- Rest of your sections and content here -->
+
+    <script>
+        let columns, rows;
+        let spacing = 50;
+        let particles = [];
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            columns = floor(width / spacing);
+            rows = floor(height / spacing);
+            for (let i = 0; i < columns; i++) {
+                for (let j = 0; j < rows; j++) {
+                    let x = i * spacing + spacing / 2;
+                    let y = j * spacing + spacing / 2;
+                    particles.push(new Particle(x, y));
+                }
+            }
+        }
+
+        function draw() {
+            background(0);
+
+            for (let particle of particles) {
+                particle.display();
+                particle.update();
+            }
+        }
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = random(5, 20);
+                this.speed = random(1, 3);
+            }
+
+            display() {
+                fill(100, 255, 200, 150);
+                noStroke();
+                ellipse(this.x, this.y, this.size);
+            }
+            update() {
+                this.x += random(-this.speed, this.speed);
+                this.y += random(-this.speed, this.speed);
+
+                this.x = constrain(this.x, 0, width);
+                this.y = constrain(this.y, 0, height);
+            }
+        }
+    </script>
+</body>
+
+</html>
